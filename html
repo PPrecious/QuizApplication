@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+    <title>Quiz Application</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .quiz-container {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+            width: 400px;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .option {
+            display: block;
+            background: #007BFF;
+            color: white;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 16px;
+        }
+        .option:hover {
+            background: #0056b3;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2 id="question">Loading...</h2>
+        <div id="options"></div>
+        <button onclick="nextQuestion()">Next</button>
+    </div>
+    
+    <script>
+        const quizData = [
+            { question: "What is the capital of France?", options: ["Paris", "London", "Berlin", "Madrid"], answer: "Paris" },
+            { question: "What is 2 + 2?", options: ["3", "4", "5", "6"], answer: "4" },
+            { question: "Who wrote 'To Kill a Mockingbird'?", options: ["Harper Lee", "J.K. Rowling", "Ernest Hemingway", "Mark Twain"], answer: "Harper Lee" },
+            { question: "What is the largest planet in our solar system?", options: ["Earth", "Mars", "Jupiter", "Saturn"], answer: "Jupiter" },
+            { question: "Which element has the chemical symbol 'O'?", options: ["Gold", "Oxygen", "Silver", "Iron"], answer: "Oxygen" },
+            { question: "What year did the Titanic sink?", options: ["1912", "1905", "1898", "1923"], answer: "1912" },
+            { question: "Who painted the Mona Lisa?", options: ["Vincent van Gogh", "Pablo Picasso", "Leonardo da Vinci", "Claude Monet"], answer: "Leonardo da Vinci" },
+            { question: "What is the square root of 64?", options: ["6", "7", "8", "9"], answer: "8" },
+            { question: "Which gas do plants absorb from the atmosphere?", options: ["Oxygen", "Carbon Dioxide", "Nitrogen", "Helium"], answer: "Carbon Dioxide" },
+            { question: "What is the longest river in the world?", options: ["Amazon River", "Nile River", "Yangtze River", "Mississippi River"], answer: "Nile River" },
+            { question: "Which country is famous for sushi?", options: ["China", "Japan", "Thailand", "South Korea"], answer: "Japan" },
+            { question: "Who discovered gravity?", options: ["Isaac Newton", "Albert Einstein", "Galileo Galilei", "Nikola Tesla"], answer: "Isaac Newton" },
+            { question: "How many continents are there?", options: ["5", "6", "7", "8"], answer: "7" }
+        ];
+        
+        let currentQuestion = 0;
+        
+        function loadQuestion() {
+            const quizContainer = document.getElementById("options");
+            const questionElement = document.getElementById("question");
+            questionElement.textContent = quizData[currentQuestion].question;
+            quizContainer.innerHTML = "";
+            
+            quizData[currentQuestion].options.forEach(option => {
+                const button = document.createElement("div");
+                button.classList.add("option");
+                button.textContent = option;
+                button.onclick = () => checkAnswer(option);
+                quizContainer.appendChild(button);
+            });
+        }
+        
+        function checkAnswer(selectedOption) {
+            const correctAnswer = quizData[currentQuestion].answer;
+            if (selectedOption === correctAnswer) {
+                alert("✅ Correct!");
+            } else {
+                alert("❌ Wrong! The correct answer is " + correctAnswer);
+            }
+        }
+        
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                alert("🎉 Quiz completed!");
+            }
+        }
+        
+        loadQuestion();
+    </script>
+</body>
+</html>
